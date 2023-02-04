@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -25,7 +26,7 @@ public class CustomUserDetails implements UserDetails {
 
     private List<String> userSpecificData;
 
-    public CustomUserDetails(User user) {
+    public CustomUserDetails(User user, List<String> userSpecificData) {
         this.userId = user.getId();
         this.userName = user.getUserName();
         this.password = user.getPassword();
@@ -35,7 +36,7 @@ public class CustomUserDetails implements UserDetails {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
         // Simulating getting something from the DB
-        this.userSpecificData = List.of("asdf", "asdfs");
+        this.userSpecificData = userSpecificData;
     }
 
     @Override

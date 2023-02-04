@@ -33,16 +33,18 @@ public class UserService implements UserDetailsService {
 
         //Check if user enabled etc.
 
-        //Attach data to the DB user object (e.g. personalized posts, menu items etc)
+        //Attach data to the DB user object (e.g. personalized posts, menu items etc.)
 
-        List<String> userSpecificData = Arrays.asList("user", "specific", "data");
-
-        return new CustomUserDetails(dbUser.get());
+        return new CustomUserDetails(dbUser.get(), getData());
 
     }
 
     public static CustomUserDetails getLoggedInUser() {
         return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+    private List<String> getData() {
+        return Arrays.asList("user", "specific", "data");
     }
 }
 
