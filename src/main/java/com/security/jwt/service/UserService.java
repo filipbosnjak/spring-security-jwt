@@ -3,11 +3,14 @@ package com.security.jwt.service;
 import com.security.jwt.entity.User;
 import com.security.jwt.security.CustomUserDetails;
 import com.security.jwt.service.repository.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,8 +35,14 @@ public class UserService implements UserDetailsService {
 
         //Attach data to the DB user object (e.g. personalized posts, menu items etc)
 
+        List<String> userSpecificData = Arrays.asList("user", "specific", "data");
+
         return new CustomUserDetails(dbUser.get());
 
+    }
+
+    public static CustomUserDetails getLoggedInUser() {
+        return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }
 

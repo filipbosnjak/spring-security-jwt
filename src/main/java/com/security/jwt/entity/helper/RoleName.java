@@ -18,12 +18,22 @@ public enum RoleName {
 
     private final String humanReadable;
 
-    private RoleName(String humanReadable) {
+    private RoleName(
+            String humanReadable) {
         this.humanReadable = humanReadable;
     }
 
     public String getHumanReadable() {
         return humanReadable;
+    }
+
+    public static boolean roleExists(String value) {
+        for(RoleName roleName : values()) {
+            if (value.equals(roleName.getHumanReadable())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public String getRoleName() {
