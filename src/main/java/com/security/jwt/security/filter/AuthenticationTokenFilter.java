@@ -1,6 +1,5 @@
 package com.security.jwt.security.filter;
 
-import com.security.jwt.security.CustomUserDetails;
 import com.security.jwt.security.jwt.JwtUtils;
 import com.security.jwt.service.UserService;
 import jakarta.servlet.FilterChain;
@@ -12,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;

@@ -4,7 +4,7 @@ import com.security.jwt.entity.Role;
 import com.security.jwt.entity.User;
 import com.security.jwt.entity.helper.RoleName;
 import com.security.jwt.security.CustomPasswordEncoder;
-import com.security.jwt.security.CustomUserDetails;
+import com.security.jwt.security.UserContext;
 import com.security.jwt.security.dto.LoginRequest;
 import com.security.jwt.security.dto.RegisterRequest;
 import com.security.jwt.security.jwt.JwtResponse;
@@ -139,8 +139,8 @@ public class AuthController {
 
     private ResponseEntity<JwtResponse> getJwtResponseResponseEntity(Authentication authentication) {
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        ResponseCookie jwt = jwtUtils.generateJwtCookie(((CustomUserDetails) authentication.getPrincipal()).getUsername());
+        UserContext userDetails = (UserContext) authentication.getPrincipal();
+        ResponseCookie jwt = jwtUtils.generateJwtCookie(((UserContext) authentication.getPrincipal()).getUsername());
 
 
         return ResponseEntity.ok()

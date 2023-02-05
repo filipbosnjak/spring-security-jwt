@@ -1,7 +1,7 @@
 package com.security.jwt.service;
 
 import com.security.jwt.entity.User;
-import com.security.jwt.security.CustomUserDetails;
+import com.security.jwt.security.UserContext;
 import com.security.jwt.service.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +22,13 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+
+    /**
+     * Sets up user context - loads it from the database
+     * @param userName
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
@@ -35,15 +42,15 @@ public class UserService implements UserDetailsService {
 
         //Attach data to the DB user object (e.g. personalized posts, menu items etc.)
 
-        return new CustomUserDetails(dbUser.get(), getData());
+        return new UserContext(dbUser.get(), getUserSpecificData());
 
     }
 
-    public static CustomUserDetails getLoggedInUser() {
-        return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public static UserContext getLoggedInUser() {
+        return (UserContext) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    private List<String> getData() {
+    private List<String> getUserSpecificData() {
         return Arrays.asList("user", "specific", "data");
     }
 }
